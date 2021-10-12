@@ -1,8 +1,29 @@
-//
-//  Models.swift
-//  CryptoCompareApp
-//
-//  Created by Vahtee Boo on 12.10.2021.
-//
+struct CoinsList: Codable {
+    let data: [String: Datum]
+    
+    enum CodingKeys: String, CodingKey {
+        case data = "Data"
+    }
+}
 
-import Foundation
+struct Datum: Codable {
+    let id, url: String
+    let imageURL: String?
+    let name, symbol, coinName, fullName: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case url = "Url"
+        case imageURL = "ImageUrl"
+        case name = "Name"
+        case symbol = "Symbol"
+        case coinName = "CoinName"
+        case fullName = "FullName"
+    }
+}
+
+struct CoinsListBase {
+    let id, url: String
+    let imageURL: String?
+    let name, symbol, coinName, fullName: String
+}
