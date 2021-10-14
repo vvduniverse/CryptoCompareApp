@@ -23,7 +23,14 @@ struct Datum: Codable {
 }
 
 struct Coin {
-    let id, url: String
+    let id: Int
+    let url: String
 //    let imageURL: String?
     let name, symbol, coinName, fullName: String
+}
+
+enum Url: String {
+    case base = "https://cryptocompare.com"
+    case baseApi = "https://min-api.cryptocompare.com"
+    case coinsList = "https://min-api.cryptocompare.com/data/all/coinlist"
 }

@@ -14,8 +14,8 @@ class CoinsListTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-                tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        let urlString = "https://min-api.cryptocompare.com/data/all/coinlist"
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        let urlString = Url.coinsList.rawValue
 
         self.loadJson(fromURLString: urlString) { (result) in
             switch result {
@@ -51,8 +51,8 @@ class CoinsListTableVC: UITableViewController {
         
         
         var content = cell.defaultContentConfiguration()
-        content.text = coin.symbol + "   " + coin.name
-        content.secondaryText = coin.fullName
+        content.text = "\(coin.id + 1).  " +  coin.symbol
+        content.secondaryText = coin.coinName
 //        content.image = UIImage(named: track.title)
 //        content.imageProperties.cornerRadius = tableView.rowHeight / 2
         cell.contentConfiguration = content
@@ -118,8 +118,7 @@ extension CoinsListTableVC {
             let decodeData = try JSONDecoder().decode(CoinsList.self, from: jsonData)
             
             for (i, y) in decodeData.data.enumerated() {
-//                [keyIndex[key]!: value]
-                let coin = Coin.init(id: String(i),
+                let coin = Coin.init(id: i,
                                      url: y.value.url,
 ////                                     imageURL: y.value.im,
                                      name: y.value.name,
@@ -140,13 +139,9 @@ extension CoinsListTableVC {
                 self.tableView.reloadData()
             }
 //            print(coins)
-            
-//            self.tableView.reloadData()
-
         } catch {
             print("decode error")
         }
-//        return currencies
     }
     
     private func loadJson(fromURLString urlString: String,
