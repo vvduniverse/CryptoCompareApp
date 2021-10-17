@@ -8,13 +8,13 @@ struct CoinsList: Codable {
 
 struct Datum: Codable {
     let id, url: String
-//    let imageURL: String?
+    let imageURL: String?
     let name, symbol, coinName, fullName: String
     
     enum CodingKeys: String, CodingKey {
         case id = "Id"
         case url = "Url"
-//        case imageURL = "ImageUrl"
+        case imageURL = "ImageUrl"
         case name = "Name"
         case symbol = "Symbol"
         case coinName = "CoinName"
@@ -25,7 +25,7 @@ struct Datum: Codable {
 struct Coin {
     let id: Int
     let url: String
-//    let imageURL: String?
+    let imageURL: String
     let name, symbol, coinName, fullName: String
 }
 

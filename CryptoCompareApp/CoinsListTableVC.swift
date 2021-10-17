@@ -13,10 +13,13 @@ class CoinsListTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.rowHeight = 70
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    @IBAction func upfateCoinsList(_ sender: UIBarButtonItem) {
         let urlString = Url.coinsList.rawValue
-
+        
         self.loadJson(fromURLString: urlString) { (result) in
             switch result {
             case .success(let data):
@@ -25,12 +28,8 @@ class CoinsListTableVC: UITableViewController {
                 print(error)
             }
         }
-        
-//        self.tableView.reloadData()
-
-        
     }
-
+    
     // MARK: - Table view data source
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {
@@ -51,10 +50,20 @@ class CoinsListTableVC: UITableViewController {
         
         
         var content = cell.defaultContentConfiguration()
+//        let imageUrl = coin.imageURL
+        // Create URL
+        let url = URL(string: coin.imageURL)!
+
+        // Fetch Image Data
+        if let data = try? Data(contentsOf: url) {
+            // Create Image and Update Image View
+            content.image = UIImage(data: data)
+        }
+    
         content.text = "\(coin.id + 1).  " +  coin.symbol
         content.secondaryText = coin.coinName
-//        content.image = UIImage(named: track.title)
-//        content.imageProperties.cornerRadius = tableView.rowHeight / 2
+//        content.image = UIImage(
+        content.imageProperties.cornerRadius = tableView.rowHeight / 2
         cell.contentConfiguration = content
 
         return cell
@@ -118,9 +127,10 @@ extension CoinsListTableVC {
             let decodeData = try JSONDecoder().decode(CoinsList.self, from: jsonData)
             
             for (i, y) in decodeData.data.enumerated() {
+                let imageUrl = y.value.imageURL ?? "ZZZ"
                 let coin = Coin.init(id: i,
                                      url: y.value.url,
-////                                     imageURL: y.value.im,
+                                     imageURL: Url.base.rawValue + imageUrl,
                                      name: y.value.name,
                                      symbol: y.value.symbol,
                                      coinName: y.value.coinName,
@@ -160,5 +170,5 @@ extension CoinsListTableVC {
             urlSession.resume()
         }
     }
-    
 }
+

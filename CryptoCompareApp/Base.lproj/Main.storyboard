@@ -30,7 +30,13 @@
                             <outlet property="delegate" destination="xjm-5n-BcD" id="2eM-zL-33Q"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="rNs-ZY-ncH"/>
+                    <navigationItem key="navigationItem" id="rNs-ZY-ncH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="nie-d0-FBA">
+                            <connections>
+                                <action selector="upfateCoinsList:" destination="xjm-5n-BcD" id="jDY-mB-h5k"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p8t-ny-TFY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
