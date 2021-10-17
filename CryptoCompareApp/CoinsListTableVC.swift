@@ -10,6 +10,9 @@ import UIKit
 class CoinsListTableVC: UITableViewController {
 
     private var coins = [Coin]()
+    private var searching = false
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
